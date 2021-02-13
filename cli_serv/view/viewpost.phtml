@@ -1,0 +1,60 @@
+<?php require_once Env::dir() . "/view/template/header.phtml" ?>
+
+<?php if ($findPost && $findPost instanceof Post) : ?>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 mt-3">   // fetches post data
+                <h1><?= $findPost->title ?></h1>
+                <h4>By <?= $findPost->author->name ?></h4>
+                <p class="mt-4"><?= $findPost->content ?></p>
+                <p class="small"><?= $findPost->stringDate() ?></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mt-2">
+                <?php if (Account::isLoggedIn()) : ?> // checks if user is logged in
+                    <form action="<?= $_SERVER['PHP_SELF'] ?>?id=<?= $findPost->id ?>" method="POST">
+                        <?php if (Account::user()->isWatched($findPost->id)) : ?>
+                            <input type="submit" class="btn btn-danger" value="Unwatch" name="unwatch">
+                        <?php else : ?>
+                            <input type="submit" class="btn btn-info" value="Watch" name="watch">
+                        <?php endif; ?>
+                    </form>
+                <?php endif; ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="comments">
+                <h3>Comments</h3>
+                <form action="<?= $_SERVER['PHP_SELF']?>?id=<?= $findPost->id ?>" method="post">
+                    <div class="form-group">
+
+                        <textarea class="form-control" id="content" rows="2" cols="100" required placeholder="Leave a comment..." style="resize: none" name="content"></textarea>
+                    </div>
+                    <input type="submit" name="newComment" value="New Comment" class="btn btn-sm btn-primary">
+                </form>
+                <div class="mt-5"></div>
+                <?php foreach ($findPost->comments() as $comment) : ?>
+                    <div class="comment border my-3 px-3 py-2 br-2">
+                        <h6><?= $comment->author->name ?></h6>
+                        <p><?= $comment->body ?></p>
+                        <p class="small text-muted m-0"><?= $comment->stringDate() ?></p>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+<?php else : ?>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="text-danger text-center my-5">Post not found</h3>
+            </div>
+        </div>
+    </div>
+
+<?php endif; ?>
+
+
+<?php require_once Env::dir() . "/view/template/footer.phtml" ?>

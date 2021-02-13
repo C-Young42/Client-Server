@@ -1,0 +1,24 @@
+<?php require_once Env::dir() . "/view/template/header.phtml"; ?>
+<main>
+
+    <div class="indextitle">
+    <h1>Signup</h1>
+    </div>
+
+    <div class="indextitle">
+        <div class="wrapper-main">
+            <section class="section-default">
+                <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
+                    <input type="text" name="name" placeholder="Name" required>
+                    <input type="email" name="email" placeholder="email" required>
+                    <input type="password" name="password" placeholder="password" required>
+                    <input type="password" name="password-confirm" placeholder="Confirm Password" required>
+                    <input type="submit" name="submit" value="Create Account">
+                </form>
+                <p style="color: red"><?= $error ??  '' ?></p>
+            </section>
+        </div>
+    </div>
+</main>
+
+<?php require_once Env::dir() . "/view/template/footer.phtml"; ?>

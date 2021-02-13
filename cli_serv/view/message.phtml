@@ -1,0 +1,27 @@
+<?php require_once Env::dir() . "/view/template/header.phtml" ?>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Your Messages</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <div class="list-group" id="list-tab-users" role="tablist"></div>
+        </div>
+        <div class="col-8">
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="current-messages" role="tabpanel" aria-labelledby="current-messages">
+                </div>
+            </div>
+            <div class="message input mt-3">
+                <input type="text" class="form-control" name="message" placeholder="Enter Message..." id="message-input">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/messages.js"></script>
+
+<?php require_once Env::dir() . "/view/template/footer.phtml" ?>
